@@ -1,0 +1,7 @@
+span[item] {
+    display: none;
+}
+
+span[item].show {
+    display: block;
+}
