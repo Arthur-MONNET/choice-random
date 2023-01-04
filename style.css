@@ -34,6 +34,7 @@ html, body {
     text-transform: none;
     text-shadow: none;
     text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: black;
@@ -50,9 +51,9 @@ button {
     width: 18vh;
     height: 18vh;
     top: 31vh;
-    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.05) 0%,rgba(0,0,0,0.15) 100%);
     left: calc(50% - 9vh);
-    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 10s ease-in-out;
+    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 55%,rgba(0,0,0,0.3) 100%);
+    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 0.3s ease-in-out;
 }
 
 button:active {
@@ -76,6 +77,6 @@ button:active {
     width: 20vh;
     height: 20vh;
     border-radius: 50%;
-    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 0%,rgba(0,0,0,0.3) 100%);
-    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 0.3s ease-in-out;
+    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 50%,rgba(0,0,0,0.3) 100%);
+    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 0s 0.3s ease-in-out;
 }

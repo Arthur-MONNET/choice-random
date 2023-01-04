@@ -499,8 +499,8 @@ function animateGradientRDM() {
     let maxSize = 60;
     let limitMaxSize = 60;
     let initVaguePosition = 20;
-    let initVagueOpacity = 0.3;
-    let vagueSize = 20;
+    let initVagueOpacity = 0.4;
+    let vagueSize = 15;
     let vagues = [initVaguePosition, initVaguePosition]
     let gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,"
     for (let vague of vagues) {
@@ -564,7 +564,7 @@ function animateGradientRDM() {
         gradient += " transparent " + maxSize + "%)";
         buttonRDMGradient = ", " + gradient
         document.querySelector("#main-page").style = mainBackground();
-    }, 10);
+    }, 6);
 
 }
 
