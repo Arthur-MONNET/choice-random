@@ -384,7 +384,9 @@ document.getElementById("add-type").addEventListener("click", function () {
         steps = numStep(null);
     }
     saveSteps(steps);
-
+    if (getNbStep(steps) > 3) {
+        document.getElementById("add-type").classList.add("hide");
+    }
     deleteEventListeners();
     createEventListeners();
 
@@ -465,6 +467,18 @@ function changePageSetup() {
     }, 500);
 }
 
+const gradientsMain = "radial-gradient(ellipse at -30%, rgba(60, 35, 137, 0.4) 0%, rgba(44, 27, 101, 0.15) 10%,  transparent 100%)"
+let buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, 0.4) 20%,  transparent 60%)"
+const colorBackground = ", linear-gradient(rgb(23, 25, 33), rgb(23, 25, 33))";
+
+function mainBackground() {
+    let background = "";
+    background += gradientsMain
+    background += buttonRDMGradient;
+    background += colorBackground;
+    return "background: " + background + ";"
+}
+
 // fonction qui fait changer de page setup vers la page main avec un animation
 function changePageMain() {
     console.log("change page to main");
@@ -472,11 +486,89 @@ function changePageMain() {
     document.querySelector('#setup-page').style = "animation : slide-out 0.5s ease-in-out";
     setTimeout(function () {
         document.querySelector('#setup-page').style = "display: none";
-        document.querySelector('#main-page').style = "";
+        document.querySelector('#main-page').style = mainBackground();
     }, 500);
     steps = getSteps();
     createTextStep(steps);
 }
+
+// fonction qui anime le gradient du boutton RDM
+function animateGradientRDM() {
+    console.log("animate gradient RDM");
+    let initMaxSize = 60;
+    let maxSize = 60;
+    let limitMaxSize = 60;
+    let initVaguePosition = 20;
+    let initVagueOpacity = 0.3;
+    let vagueSize = 20;
+    let vagues = [initVaguePosition, initVaguePosition]
+    let gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,"
+    for (let vague of vagues) {
+        gradient += " rgba(44, 27, 101, " + vagueSize * initVagueOpacity / vagueSize + ") " + vague + "%, rgba(44, 27, 101, " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vague + "%,"
+    }
+    gradient += " transparent 60%)";
+    let i = 0;
+    // intervalle qui cree des vagues de gradient
+    let interval = setInterval(function () {
+        i++;
+        if (i > 200) {
+            setTimeout(function () {
+                console.log("stop interval");
+                buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
+                document.querySelector("#main-page").style = mainBackground();
+            }, 20);
+            console.log("stop interval");
+            clearInterval(interval);
+        } else {
+            if (maxSize < limitMaxSize)
+                maxSize += 0.5;
+        }
+        gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,"
+        for (let j = vagues.length-1; j > 0 ; j--) {
+            if (vagues[j] < limitMaxSize) {
+                if (vagues[j - 1] <= initVaguePosition + vagueSize) {
+                    gradient += " rgba(44, 27, 101, " + vagueSize * initVagueOpacity / vagueSize + ") " + vagues[j] + "%, rgba(44, 27, 101, " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vagues[j] + "%,"
+                } else {
+                    if (j === 1) {
+                        console.log("1 : ", vagues[j], (vagues[j] - initVaguePosition < vagueSize ? initVagueOpacity - (vagues[j] - initVaguePosition) * initVagueOpacity / vagueSize : "0"), (vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition), (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0"))
+                    }
+                    vagues[j] += 0.5;
+                    let blackVaguePosition = vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition
+
+                    let changementOpacityofBackVague = (1-((vagues.length)-j/(vagues.length-1))*0.2)
+                    console.log("changementOpacityofBackVague : ",changementOpacityofBackVague)
+                    let blackVagueOpacity = (1 - ((blackVaguePosition - initVaguePosition)/vagueSize) * changementOpacityofBackVague) * initVagueOpacity
+                    console.log("blackVagueOpacity : ",blackVagueOpacity)
+                    let endBlackVagueOpacity = (1 - changementOpacityofBackVague) * initVagueOpacity
+                    console.log(blackVaguePosition - initVaguePosition < vagueSize)
+                    console.log((blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))))
+                    console.log(limitMaxSize - vagues[j])
+                    console.log(limitMaxSize - initVaguePosition - 1.5 * vagueSize)
+                    console.log(((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize)))
+                    gradient += " rgba(44, 27, 101, " + (blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))) + ") " +
+                    blackVaguePosition + "%," +
+                        " rgba(44, 27, 101, " + (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
+                        vagues[j] + "%,"
+                }
+            }else if ( j === vagues.length-1 && maxSize >= initMaxSize) {
+                maxSize--;
+            }
+        }
+        if (vagues[0] < limitMaxSize) {
+            vagues[0] += 0.5;
+            gradient += " rgba(44, 27, 101, " + ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition < vagueSize ? initVagueOpacity - ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition) * initVagueOpacity / vagueSize : "0") + ") " +
+                (vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) + "%," +
+                " rgba(44, 27, 101, " + (vagues[0] < limitMaxSize ? (limitMaxSize - vagues[0]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
+                vagues[0] + "%,"
+        }
+        gradient += " transparent " + maxSize + "%)";
+        buttonRDMGradient = ", " + gradient
+        document.querySelector("#main-page").style = mainBackground();
+    }, 10);
+
+}
+
+
 
 // event listener qui gere le boutton back
 document.querySelector("#back").addEventListener("click", function () {
@@ -560,12 +652,17 @@ function changeTypeStep(steps, index, type) {
 
 // event listener qui gere le boutton qui lance le random
 document.querySelector("#random").addEventListener("click", function () {
+    animateGradientRDM();
     console.log("random");
     steps = getSteps();
     let selection = getRandom(steps);
     console.log("selection : ", selection);
     createItemsStep(selection, 0, steps);
     runAnimation(selection);
+    // unfocus after 0.6s
+    setTimeout(function () {
+        document.querySelector("#random").blur();
+    }, 300);
 });
 
 function animationdefilement(step) {
@@ -586,184 +683,187 @@ function animationdefilement(step) {
     }, 100);
 }
 
-    // function runAnimation qui lance l'animation de selection des Steps et qui affiche le resultat après avoir affiché aléatoirement chaque items du step selectionné pendant 3s par step et qui s'arrete sur l'item selectionné
-    function runAnimation(selection) {
-        console.log("runAnimation : ", selection);
-        let i = 1;
-        console.log("selection.length : ", selection.length);
-        animationdefilement(document.querySelector("#step0"));
-        let stepInterval = setInterval(function () {
-            console.log("i : ", i);
-            if (i < selection.length) {
-                animationdefilement(document.querySelector("#step" + i));
-                i++;
-            } else {
-                clearInterval(stepInterval);
-            }
-        }, 2100);
-    }
-
-    // function createItemsStep qui crée les items de chaque Step et qui les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
-    function createItemsStep(selection, index, steps) {
-        console.log("createItemsStep : ", selection, index, steps);
-        let step = document.querySelector("#step" + index);
-        step.innerHTML = "";
-        for (let item of getListItem(steps)) {
-            step.innerHTML += '<span item="' + item + '">' + item.toString().toUpperCase() + '</span>';
-        }
-        step.querySelectorAll("span")[0].classList.add("show");
-        step.querySelector('span[item = "' + selection[index] + '"]').classList.add("selected");
-        if (index < selection.length - 1) {
-            createItemsStep(selection, index + 1, steps.subStep.find((subStep) => subStep.it === selection[index]));
-        }
-    }
-
-
-    // fontion qui crée les text de chaque Step et les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
-    function createTextStep(steps) {
-        console.log("createTextStep : ", steps);
-        let text = '<span id="step0">' + (steps.type === "number" ? steps.min : steps.chars[0].toUpperCase()) + '</span>';
-        for (let i = 1; i < getNbStep(steps); i++) {
-            text += '<span id="step' + i + '"></span>'
-        }
-        document.querySelector("#list-steps").innerHTML = text;
-    }
-
-
-    // function changeStep qui change le Step et ajoute des sous Step si necessaire
-    function changeStep(step, char = null, min = null, max = null) {
-        console.log("changeStep : ", step);
-        if (char) {
-            step.chars = char;
-        }
-        if (min) {
-            step.min = parseInt(min);
-        }
-        if (max) {
-            step.max = parseInt(max);
-        }
-        if (step.subStep && step.subStep.length > 0) {
-            let newSubStep = [];
-            let subSteps = step.subStep;
-            step.subStep = [];
-            const subType = subSteps[0].type;
-            for (let item of getListItem(step)) {
-                console.log("item : ", item)
-                let subStep = subSteps.find(s => s.it === item);
-                console.log("subStep : ", subStep)
-                if (subStep) {
-                    newSubStep.push(subStep);
-                } else {
-                    newSubStep.push(createNewStep(subType, item, subSteps[0].subStep));
-                }
-            }
-            step.subStep = newSubStep;
-        }
-        console.log("To : ", step);
-        return step;
-    }
-
-
-
-
-    // event listener qui gere les bouttons delete Step
-    document.querySelector("#delete-steps").addEventListener("click", function () {
-        console.log("delete steps")
-
-        // clear list type steps
-        document.querySelector("#list-type-steps").innerHTML = "";
-
-        document.querySelector("#list-type-steps").appendChild(createStepSelect());
-        steps = saveSteps(numStep(null));
-        reloadStepsSetup(steps)
-    });
-
-    //fonction getStepByEl qui selectionne le Step correspondant a l'element dans steps et effectue la fonction functionOnStep sur ce Step
-    function getStepByEl(steps, el, functionOnStep) {
-        let step = steps;
-        let i = 0;
-        let combinaison = [];
-        while (el.closest(".sub-step") && i < 10) {
+// function runAnimation qui lance l'animation de selection des Steps et qui affiche le resultat après avoir affiché aléatoirement chaque items du step selectionné pendant 3s par step et qui s'arrete sur l'item selectionné
+function runAnimation(selection) {
+    console.log("runAnimation : ", selection);
+    let i = 1;
+    console.log("selection.length : ", selection.length);
+    animationdefilement(document.querySelector("#step0"));
+    let stepInterval = setInterval(function () {
+        console.log("i : ", i);
+        if (i < selection.length) {
+            animationdefilement(document.querySelector("#step" + i));
             i++;
-            combinaison.push(el.closest(".sub-step").dataset.it);
-            el = el.closest(".sub-step").parentNode;
+        } else {
+            clearInterval(stepInterval);
         }
-        combinaison.reverse();
-        let listTypeSteps = getTypeStep(steps);
-        console.log(combinaison);
-        console.log(listTypeSteps);
-        for (let i = 0; i < combinaison.length; i++) {
-            if (listTypeSteps[i] === "number") {
-                combinaison[i] = parseInt(combinaison[i]);
+    }, 2100);
+}
+
+// function createItemsStep qui crée les items de chaque Step et qui les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
+function createItemsStep(selection, index, steps) {
+    console.log("createItemsStep : ", selection, index, steps);
+    let step = document.querySelector("#step" + index);
+    step.innerHTML = "";
+    for (let item of getListItem(steps)) {
+        step.innerHTML += '<span item="' + item + '">' + item.toString().toUpperCase() + '</span>';
+    }
+    step.querySelectorAll("span")[0].classList.add("show");
+    step.querySelector('span[item = "' + selection[index] + '"]').classList.add("selected");
+    if (index < selection.length - 1) {
+        createItemsStep(selection, index + 1, steps.subStep.find((subStep) => subStep.it === selection[index]));
+    }
+}
+
+
+// fontion qui crée les text de chaque Step et les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
+function createTextStep(steps) {
+    console.log("createTextStep : ", steps);
+    let text = '<span id="step0">' + (steps.type === "number" ? steps.min : steps.chars[0].toUpperCase()) + '</span>';
+    for (let i = 1; i < getNbStep(steps); i++) {
+        text += '<span id="step' + i + '"></span>'
+    }
+    document.querySelector("#list-steps").innerHTML = text;
+}
+
+
+// function changeStep qui change le Step et ajoute des sous Step si necessaire
+function changeStep(step, char = null, min = null, max = null) {
+    console.log("changeStep : ", step);
+    if (char) {
+        step.chars = char;
+    }
+    if (min) {
+        step.min = parseInt(min);
+    }
+    if (max) {
+        step.max = parseInt(max);
+    }
+    if (step.subStep && step.subStep.length > 0) {
+        let newSubStep = [];
+        let subSteps = step.subStep;
+        step.subStep = [];
+        const subType = subSteps[0].type;
+        for (let item of getListItem(step)) {
+            console.log("item : ", item)
+            let subStep = subSteps.find(s => s.it === item);
+            console.log("subStep : ", subStep)
+            if (subStep) {
+                newSubStep.push(subStep);
+            } else {
+                newSubStep.push(createNewStep(subType, item, subSteps[0].subStep));
             }
         }
-        console.log(combinaison);
-        for (let it of combinaison) {
-            step = step.subStep.find((subStep) => subStep.it === it);
+        step.subStep = newSubStep;
+    }
+    console.log("To : ", step);
+    return step;
+}
+
+
+
+
+// event listener qui gere les bouttons delete Step
+document.querySelector("#delete-steps").addEventListener("click", function () {
+    console.log("delete steps")
+
+    // clear list type steps
+    document.querySelector("#list-type-steps").innerHTML = "";
+
+    document.querySelector("#list-type-steps").appendChild(createStepSelect());
+    steps = saveSteps(numStep(null));
+    if (document.getElementById("add-type").classList.contains("hide")) {
+        document.getElementById("add-type").classList.remove("hide");
+    }
+    reloadStepsSetup(steps)
+});
+
+//fonction getStepByEl qui selectionne le Step correspondant a l'element dans steps et effectue la fonction functionOnStep sur ce Step
+function getStepByEl(steps, el, functionOnStep) {
+    let step = steps;
+    let i = 0;
+    let combinaison = [];
+    while (el.closest(".sub-step") && i < 10) {
+        i++;
+        combinaison.push(el.closest(".sub-step").dataset.it);
+        el = el.closest(".sub-step").parentNode;
+    }
+    combinaison.reverse();
+    let listTypeSteps = getTypeStep(steps);
+    console.log(combinaison);
+    console.log(listTypeSteps);
+    for (let i = 0; i < combinaison.length; i++) {
+        if (listTypeSteps[i] === "number") {
+            combinaison[i] = parseInt(combinaison[i]);
         }
-        console.log(step);
-        step = functionOnStep(step);
-        console.log(steps);
-        return steps;
     }
-
-    // fonction qui cree les event listeners de la page setup
-    function createEventListeners() {
-        // event listener qui gere le changement de type de Step
-        document.querySelectorAll(".type-step").forEach((el, i) => {
-            el.addEventListener("change", function () {
-                // fonction getAllObjAtStep qui retourne tous les objets d'un Step
-                console.log(el.value)
-                let value = el.value;
-                console.log("change type step : " + i)
-                let steps = getSteps();
-                steps = changeTypeStep(steps, i, el.value);
-                saveSteps(steps);
-                document.querySelector("#list-type-steps").innerHTML = "";
-                for (let type of getTypeStep(steps)) {
-                    document.querySelector("#list-type-steps").appendChild(createStepSelect(type));
-                }
-                reloadStepsSetup(steps);
-            });
-        });
-        // event listener qui gere le changement du range de Step
-        document.querySelectorAll("#setup-range-step input").forEach((el, i) => {
-            el.addEventListener("blur", function () {
-                // selection du step correspondant au range change dans la liste des steps (getSteps)
-                console.log("change range step : " + i)
-                let steps = getSteps();
-                // on selectionne le step correspondant au range change à l'aide de la présence de la class "sub-steps" sur la div parente sur l'input changé
-                steps = getStepByEl(steps, el, (step) => {
-                    console.log(step)
-                    // on change le Step
-                    console.log(step.type === "number" ? el.classList.contains("min") ? 'min' : 'max' : 'char')
-                    return step.type === "number" ? el.classList.contains("min") ? changeStep(step, null, el.value, null) : changeStep(step, null, null, el.value) : changeStep(step, el.value, null, null);
-                });
-                // on sauvegarde les steps
-                saveSteps(steps);
-                // on recharge la page setup
-                reloadStepsSetup(steps);
-            });
-        });
+    console.log(combinaison);
+    for (let it of combinaison) {
+        step = step.subStep.find((subStep) => subStep.it === it);
     }
+    console.log(step);
+    step = functionOnStep(step);
+    console.log(steps);
+    return steps;
+}
+
+// fonction qui cree les event listeners de la page setup
+function createEventListeners() {
+    // event listener qui gere le changement de type de Step
+    document.querySelectorAll(".type-step").forEach((el, i) => {
+        el.addEventListener("change", function () {
+            // fonction getAllObjAtStep qui retourne tous les objets d'un Step
+            console.log(el.value)
+            let value = el.value;
+            console.log("change type step : " + i)
+            let steps = getSteps();
+            steps = changeTypeStep(steps, i, el.value);
+            saveSteps(steps);
+            document.querySelector("#list-type-steps").innerHTML = "";
+            for (let type of getTypeStep(steps)) {
+                document.querySelector("#list-type-steps").appendChild(createStepSelect(type));
+            }
+            reloadStepsSetup(steps);
+        });
+    });
+    // event listener qui gere le changement du range de Step
+    document.querySelectorAll("#setup-range-step input").forEach((el, i) => {
+        el.addEventListener("blur", function () {
+            // selection du step correspondant au range change dans la liste des steps (getSteps)
+            console.log("change range step : " + i)
+            let steps = getSteps();
+            // on selectionne le step correspondant au range change à l'aide de la présence de la class "sub-steps" sur la div parente sur l'input changé
+            steps = getStepByEl(steps, el, (step) => {
+                console.log(step)
+                // on change le Step
+                console.log(step.type === "number" ? el.classList.contains("min") ? 'min' : 'max' : 'char')
+                return step.type === "number" ? el.classList.contains("min") ? changeStep(step, null, el.value, null) : changeStep(step, null, null, el.value) : changeStep(step, el.value, null, null);
+            });
+            // on sauvegarde les steps
+            saveSteps(steps);
+            // on recharge la page setup
+            reloadStepsSetup(steps);
+        });
+    });
+}
 
 
-    // fonction qui supprime les event listeners présents sur les panels
-    function deleteEventListeners() {
-        // tableau des classes possédant des event listeners
-        const classes = ['#setup-range-step input', '.type-step']
-        // on parcours le tableau des classes
-        classes.forEach((class_name, index) => {
-            // on récupere les éléments possédant la classe
-            const elements = document.querySelectorAll(class_name)
-            // on parcours les éléments
-            elements.forEach((element, index) => {
-                // on supprime les event listeners
-                const new_element = element.cloneNode(true)
-                element.parentNode.replaceChild(new_element, element)
-            })
+// fonction qui supprime les event listeners présents sur les panels
+function deleteEventListeners() {
+    // tableau des classes possédant des event listeners
+    const classes = ['#setup-range-step input', '.type-step']
+    // on parcours le tableau des classes
+    classes.forEach((class_name, index) => {
+        // on récupere les éléments possédant la classe
+        const elements = document.querySelectorAll(class_name)
+        // on parcours les éléments
+        elements.forEach((element, index) => {
+            // on supprime les event listeners
+            const new_element = element.cloneNode(true)
+            element.parentNode.replaceChild(new_element, element)
         })
-    }
+    })
+}
 
-    changePageMain()
-    createEventListeners();
+changePageMain()
+createEventListeners();

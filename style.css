@@ -1,7 +1,81 @@
 span[item] {
     display: none;
 }
-
 span[item].show {
     display: block;
+}
+.hide {
+    display: none;
+}
+
+/* init */
+
+/* design mobile first */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: white;
+}
+
+/* clear default styles */
+
+html, body {
+    height: 101vh;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+    text-transform: none;
+    text-shadow: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: black;
+}
+
+button {
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#random:focus {
+    width: 18vh;
+    height: 18vh;
+    top: 31vh;
+    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.05) 0%,rgba(0,0,0,0.15) 100%);
+    left: calc(50% - 9vh);
+    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 10s ease-in-out;
+}
+
+button:active {
+    border: none;
+}
+
+:focus-visible {
+    outline: none;
+}
+
+
+#main-page {
+    height: 100vh;
+    background-size: cover;
+}
+
+#random {
+    position: absolute;
+    top: 30vh;
+    left: calc(50% - 10vh);
+    width: 20vh;
+    height: 20vh;
+    border-radius: 50%;
+    background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 0%,rgba(0,0,0,0.3) 100%);
+    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 0.3s ease-in-out;
 }
