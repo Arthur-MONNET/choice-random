@@ -467,8 +467,10 @@ function changePageSetup() {
     }, 500);
 }
 
-const gradientsMain = "radial-gradient(ellipse at -30%, rgba(60, 35, 137, 0.4) 0%, rgba(44, 27, 101, 0.15) 10%,  transparent 100%)"
-let buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, 0.4) 20%,  transparent 60%)"
+const purpleRGBNum = [44, 27, 101]
+const purpleRGB = purpleRGBNum.join(", ")
+const gradientsMain = "radial-gradient(ellipse at -30%, rgba(60, 35, 137, 0.4) 0%, rgba(" + purpleRGB + ", 0.15) 10%,  transparent 100%)"
+let buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", 0.7) 20%,  transparent 60%)"
 const colorBackground = ", linear-gradient(rgb(23, 25, 33), rgb(23, 25, 33))";
 
 function mainBackground() {
@@ -498,13 +500,13 @@ function animateGradientRDM() {
     let initMaxSize = 60;
     let maxSize = 60;
     let limitMaxSize = 60;
-    let initVaguePosition = 20;
-    let initVagueOpacity = 0.4;
+    let initVaguePosition = 25;
+    let initVagueOpacity = 0.7;
     let vagueSize = 15;
     let vagues = [initVaguePosition, initVaguePosition]
-    let gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,"
+    let gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
     for (let vague of vagues) {
-        gradient += " rgba(44, 27, 101, " + vagueSize * initVagueOpacity / vagueSize + ") " + vague + "%, rgba(44, 27, 101, " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vague + "%,"
+        gradient += " rgba(" + purpleRGB + ", " + vagueSize * initVagueOpacity / vagueSize + ") " + vague + "%, rgba(" + purpleRGB + ", " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vague + "%,"
     }
     gradient += " transparent 60%)";
     let i = 0;
@@ -514,7 +516,7 @@ function animateGradientRDM() {
         if (i > 200) {
             setTimeout(function () {
                 console.log("stop interval");
-                buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
+                buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
                 document.querySelector("#main-page").style = mainBackground();
             }, 20);
             console.log("stop interval");
@@ -523,11 +525,11 @@ function animateGradientRDM() {
             if (maxSize < limitMaxSize)
                 maxSize += 0.5;
         }
-        gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(44, 27, 101, " + initVagueOpacity + ") " + initVaguePosition + "%,"
+        gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
         for (let j = vagues.length-1; j > 0 ; j--) {
-            if (vagues[j] < limitMaxSize) {
+            if (vagues[j] < limitMaxSize + vagueSize/2) {
                 if (vagues[j - 1] <= initVaguePosition + vagueSize) {
-                    gradient += " rgba(44, 27, 101, " + vagueSize * initVagueOpacity / vagueSize + ") " + vagues[j] + "%, rgba(44, 27, 101, " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vagues[j] + "%,"
+                    gradient += " rgba(" + purpleRGB + ", " + vagueSize * initVagueOpacity / vagueSize + ") " + vagues[j] + "%, rgba(" + purpleRGB + ", " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vagues[j] + "%,"
                 } else {
                     if (j === 1) {
                         console.log("1 : ", vagues[j], (vagues[j] - initVaguePosition < vagueSize ? initVagueOpacity - (vagues[j] - initVaguePosition) * initVagueOpacity / vagueSize : "0"), (vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition), (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0"))
@@ -545,10 +547,11 @@ function animateGradientRDM() {
                     console.log(limitMaxSize - vagues[j])
                     console.log(limitMaxSize - initVaguePosition - 1.5 * vagueSize)
                     console.log(((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize)))
-                    gradient += " rgba(44, 27, 101, " + (blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))) + ") " +
+
+                    gradient += " rgba(" + purpleRGB + ", " + (blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))) + ") " +
                     blackVaguePosition + "%," +
-                        " rgba(44, 27, 101, " + (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
-                        vagues[j] + "%,"
+                        " rgba(" + purpleRGB + ", " + (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
+                        (vagues[j] < limitMaxSize ? vagues[j] : limitMaxSize) + "%,"
                 }
             }else if ( j === vagues.length-1 && maxSize >= initMaxSize) {
                 maxSize--;
@@ -556,10 +559,10 @@ function animateGradientRDM() {
         }
         if (vagues[0] < limitMaxSize) {
             vagues[0] += 0.5;
-            gradient += " rgba(44, 27, 101, " + ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition < vagueSize ? initVagueOpacity - ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition) * initVagueOpacity / vagueSize : "0") + ") " +
+            gradient += " rgba(" + purpleRGB + ", " + ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition < vagueSize ? initVagueOpacity - ((vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) - initVaguePosition) * initVagueOpacity / vagueSize : "0") + ") " +
                 (vagues[0] - vagueSize / 2 > initVaguePosition ? vagues[0] - vagueSize / 2 : initVaguePosition) + "%," +
-                " rgba(44, 27, 101, " + (vagues[0] < limitMaxSize ? (limitMaxSize - vagues[0]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
-                vagues[0] + "%,"
+                " rgba(" + purpleRGB + ", " + (vagues[0] < limitMaxSize ? (limitMaxSize - vagues[0]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
+                (vagues[0] < limitMaxSize ? vagues[0] : limitMaxSize) + "%,"
         }
         gradient += " transparent " + maxSize + "%)";
         buttonRDMGradient = ", " + gradient
