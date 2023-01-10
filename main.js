@@ -470,7 +470,7 @@ function changePageSetup() {
 const purpleRGBNum = [44, 27, 101]
 const purpleRGB = purpleRGBNum.join(", ")
 const gradientsMain = "radial-gradient(ellipse at -30%, rgba(60, 35, 137, 0.4) 0%, rgba(" + purpleRGB + ", 0.15) 10%,  transparent 100%)"
-let buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", 0.7) 20%,  transparent 60%)"
+let buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", 0.7) 20%,  transparent 60%)"
 const colorBackground = ", linear-gradient(rgb(23, 25, 33), rgb(23, 25, 33))";
 
 function mainBackground() {
@@ -496,7 +496,7 @@ function changePageMain() {
 
 // fonction qui anime le gradient du boutton RDM
 function animateGradientRDM() {
-    console.log("animate gradient RDM");
+    // console.log("animate gradient RDM");
     let initMaxSize = 60;
     let maxSize = 60;
     let limitMaxSize = 60;
@@ -504,7 +504,7 @@ function animateGradientRDM() {
     let initVagueOpacity = 0.7;
     let vagueSize = 15;
     let vagues = [initVaguePosition, initVaguePosition]
-    let gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
+    let gradient = "radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
     for (let vague of vagues) {
         gradient += " rgba(" + purpleRGB + ", " + vagueSize * initVagueOpacity / vagueSize + ") " + vague + "%, rgba(" + purpleRGB + ", " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vague + "%,"
     }
@@ -515,45 +515,45 @@ function animateGradientRDM() {
         i++;
         if (i > 200) {
             setTimeout(function () {
-                console.log("stop interval");
-                buttonRDMGradient = ", radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
+                // console.log("stop interval");
+                buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
                 document.querySelector("#main-page").style = mainBackground();
             }, 20);
-            console.log("stop interval");
+            // console.log("stop interval");
             clearInterval(interval);
         } else {
             if (maxSize < limitMaxSize)
                 maxSize += 0.5;
         }
-        gradient = "radial-gradient(circle at 50% 40%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
-        for (let j = vagues.length-1; j > 0 ; j--) {
-            if (vagues[j] < limitMaxSize + vagueSize/2) {
+        gradient = "radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
+        for (let j = vagues.length - 1; j > 0; j--) {
+            if (vagues[j] < limitMaxSize + vagueSize / 2) {
                 if (vagues[j - 1] <= initVaguePosition + vagueSize) {
                     gradient += " rgba(" + purpleRGB + ", " + vagueSize * initVagueOpacity / vagueSize + ") " + vagues[j] + "%, rgba(" + purpleRGB + ", " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vagues[j] + "%,"
                 } else {
                     if (j === 1) {
-                        console.log("1 : ", vagues[j], (vagues[j] - initVaguePosition < vagueSize ? initVagueOpacity - (vagues[j] - initVaguePosition) * initVagueOpacity / vagueSize : "0"), (vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition), (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0"))
+                        // console.log("1 : ", vagues[j], (vagues[j] - initVaguePosition < vagueSize ? initVagueOpacity - (vagues[j] - initVaguePosition) * initVagueOpacity / vagueSize : "0"), (vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition), (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0"))
                     }
                     vagues[j] += 0.5;
                     let blackVaguePosition = vagues[j] - vagueSize / 2 > initVaguePosition ? vagues[j] - vagueSize / 2 : initVaguePosition
 
-                    let changementOpacityofBackVague = (1-((vagues.length)-j/(vagues.length-1))*0.2)
-                    console.log("changementOpacityofBackVague : ",changementOpacityofBackVague)
-                    let blackVagueOpacity = (1 - ((blackVaguePosition - initVaguePosition)/vagueSize) * changementOpacityofBackVague) * initVagueOpacity
-                    console.log("blackVagueOpacity : ",blackVagueOpacity)
+                    let changementOpacityofBackVague = (1 - ((vagues.length) - j / (vagues.length - 1)) * 0.2)
+                    // console.log("changementOpacityofBackVague : ",changementOpacityofBackVague)
+                    let blackVagueOpacity = (1 - ((blackVaguePosition - initVaguePosition) / vagueSize) * changementOpacityofBackVague) * initVagueOpacity
+                    // console.log("blackVagueOpacity : ",blackVagueOpacity)
                     let endBlackVagueOpacity = (1 - changementOpacityofBackVague) * initVagueOpacity
-                    console.log(blackVaguePosition - initVaguePosition < vagueSize)
-                    console.log((blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))))
-                    console.log(limitMaxSize - vagues[j])
-                    console.log(limitMaxSize - initVaguePosition - 1.5 * vagueSize)
-                    console.log(((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize)))
+                    // console.log(blackVaguePosition - initVaguePosition < vagueSize)
+                    // console.log((blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))))
+                    // console.log(limitMaxSize - vagues[j])
+                    // console.log(limitMaxSize - initVaguePosition - 1.5 * vagueSize)
+                    // console.log(((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize)))
 
-                    gradient += " rgba(" + purpleRGB + ", " + (blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j])/(limitMaxSize - initVaguePosition - 1.5 * vagueSize))) + ") " +
-                    blackVaguePosition + "%," +
+                    gradient += " rgba(" + purpleRGB + ", " + (blackVaguePosition - initVaguePosition < vagueSize ? blackVagueOpacity : endBlackVagueOpacity * ((limitMaxSize - vagues[j]) / (limitMaxSize - initVaguePosition - 1.5 * vagueSize))) + ") " +
+                        blackVaguePosition + "%," +
                         " rgba(" + purpleRGB + ", " + (vagues[j] < limitMaxSize ? (limitMaxSize - vagues[j]) * initVagueOpacity / (limitMaxSize - initVaguePosition) : "0") + ") " +
                         (vagues[j] < limitMaxSize ? vagues[j] : limitMaxSize) + "%,"
                 }
-            }else if ( j === vagues.length-1 && maxSize >= initMaxSize) {
+            } else if (j === vagues.length - 1 && maxSize >= initMaxSize) {
                 maxSize--;
             }
         }
@@ -568,7 +568,6 @@ function animateGradientRDM() {
         buttonRDMGradient = ", " + gradient
         document.querySelector("#main-page").style = mainBackground();
     }, 6);
-
 }
 
 
@@ -661,11 +660,10 @@ document.querySelector("#random").addEventListener("click", function () {
     let selection = getRandom(steps);
     console.log("selection : ", selection);
     createItemsStep(selection, 0, steps);
-    runAnimation(selection);
-    // unfocus after 0.6s
-    setTimeout(function () {
+    runAnimation(selection).then(done => {
+        console.log("animation " + done);
         document.querySelector("#random").blur();
-    }, 300);
+    });
 });
 
 function animationdefilement(step) {
@@ -684,23 +682,26 @@ function animationdefilement(step) {
             clearInterval(interval);
         }
     }, 100);
+
 }
 
 // function runAnimation qui lance l'animation de selection des Steps et qui affiche le resultat après avoir affiché aléatoirement chaque items du step selectionné pendant 3s par step et qui s'arrete sur l'item selectionné
-function runAnimation(selection) {
+async function runAnimation(selection) {
     console.log("runAnimation : ", selection);
     let i = 1;
     console.log("selection.length : ", selection.length);
     animationdefilement(document.querySelector("#step0"));
-    let stepInterval = setInterval(function () {
-        console.log("i : ", i);
-        if (i < selection.length) {
-            animationdefilement(document.querySelector("#step" + i));
-            i++;
-        } else {
-            clearInterval(stepInterval);
-        }
-    }, 2100);
+    return await new Promise(resolve => {
+        const stepInterval = setInterval(() => {
+            if (i < selection.length) {
+                animationdefilement(document.querySelector("#step" + i));
+                i++;
+            } else {
+                resolve("done");
+                clearInterval(stepInterval);
+            }
+        }, 2100);
+    });
 }
 
 // function createItemsStep qui crée les items de chaque Step et qui les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"

@@ -22,10 +22,11 @@ span[item].show {
 
 /* clear default styles */
 
-html, body {
-    height: 101vh;
+html,
+body {
+    height: 100vh;
     width: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
@@ -38,6 +39,7 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: black;
+    overflow: hidden;
 }
 
 button {
@@ -47,14 +49,28 @@ button {
     cursor: pointer;
 }
 
+.textGlow {
+    font-weight: 800;
+    font-size: 75px;
+    color: rgba(32, 12, 103, 0.304);
+    text-shadow: -3px -3px 5px rgba(0, 0, 0, 0.2),3px 3px 3px rgba(255, 255, 255, 0.05), 0 0 70px #ffffff0c, 0 0 120px #ffffff00, 0 0 1000px #ffffff00;
+}
+.textGlow:focus {
+    font-size: 71px;
+    color: #ffffff;
+    text-shadow: -3px -3px 5px rgba(0, 0, 0, 0.2),3px 3px 3px rgba(255, 255, 255, 0.1), 0 0 70px #ffffff, 0 0 120px #ffffff86, 0 0 1000px #ffffff59;
+}
+
 #random:focus {
     width: 33.4vh;
     height: 33.4vh;
-    top: 23.2vh;
+    bottom: 22.8vh;
     left: calc(50% - 16.8vh);
     /*background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 55%,rgba(0,0,0,0.3) 100%);*/
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.13), -2px -2px 2px rgba(179, 175, 255, 0.1), 3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
-    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, background-image 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.13), -2px -2px 2px rgba(179, 175, 255, 0.1),
+        3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
+    transition: bottom 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out,
+        background-image 0.3s ease-in-out, box-shadow 0.3s ease-in-out, font-size 0.3s ease-in-out, text-shadow 0.3s 0.3s ease-in-out, color 0.3s 0.3s ease-in-out;
 }
 
 button:active {
@@ -65,20 +81,49 @@ button:active {
     outline: none;
 }
 
-
 #main-page {
-    height: 100vh;
+    height: 101vh;
     background-size: cover;
 }
 
 #random {
     position: absolute;
-    top: 23vh;
+    bottom: 22.5vh;
+    z-index: 2;
     left: calc(50% - 17vh);
     width: 34vh;
     height: 34vh;
     border-radius: 50%;
     background: rgba(55, 0, 255, 0.043);
-    box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 0.219), -4px -4px 5px 2px rgba(179, 175, 255, 0.1), 3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
-    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 0.219), -4px -4px 5px 2px rgba(179, 175, 255, 0.1),
+        3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
+    transition: bottom 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out, font-size 0.3s ease-in-out, text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#list-steps {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0, 10vw;
+    margin-top: 15vh;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10vw;
+    z-index: 1;
+}
+
+#list-steps > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 39px;
+    width: 15vh;
+    height: 100%;
+    background: rgba(41, 1, 187, 0.043);
+    box-shadow: inset 20px 20px 40px rgba(0, 0, 0, 0.3), inset -20px -20px 40px rgba(255, 255, 255, 0.05);
 }
