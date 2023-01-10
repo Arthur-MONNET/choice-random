@@ -467,11 +467,11 @@ function changePageSetup() {
     }, 500);
 }
 
-const purpleRGBNum = [44, 27, 101]
+const purpleRGBNum = [59,72,121]
 const purpleRGB = purpleRGBNum.join(", ")
-const gradientsMain = "radial-gradient(ellipse at -30%, rgba(60, 35, 137, 0.4) 0%, rgba(" + purpleRGB + ", 0.15) 10%,  transparent 100%)"
-let buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", 0.7) 20%,  transparent 60%)"
-const colorBackground = ", linear-gradient(rgb(23, 25, 33), rgb(23, 25, 33))";
+const gradientsMain = "radial-gradient(ellipse at -30%, rgba(" + purpleRGBNum + ", 0.4) 0%, rgba(" + purpleRGB + ", 0.15) 10%,  transparent 100%)"
+let buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(" + purpleRGBNum + ", 0.4) 4%, rgba(" + purpleRGB + ", 0.7) 20%,  transparent 60%)"
+const colorBackground = ", linear-gradient(rgb(66 75 111), rgb(42 48 70))";
 
 function mainBackground() {
     let background = "";
@@ -504,7 +504,7 @@ function animateGradientRDM() {
     let initVagueOpacity = 0.7;
     let vagueSize = 15;
     let vagues = [initVaguePosition, initVaguePosition]
-    let gradient = "radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
+    let gradient = "radial-gradient(circle at 50% 60%, rgba(" + purpleRGBNum + ", 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
     for (let vague of vagues) {
         gradient += " rgba(" + purpleRGB + ", " + vagueSize * initVagueOpacity / vagueSize + ") " + vague + "%, rgba(" + purpleRGB + ", " + (limitMaxSize - initVaguePosition) * initVagueOpacity / (limitMaxSize - initVaguePosition) + ") " + vague + "%,"
     }
@@ -516,7 +516,7 @@ function animateGradientRDM() {
         if (i > 200) {
             setTimeout(function () {
                 // console.log("stop interval");
-                buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
+                buttonRDMGradient = ", radial-gradient(circle at 50% 60%, rgba(" + purpleRGBNum + ", 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,  transparent 60%)";
                 document.querySelector("#main-page").style = mainBackground();
             }, 20);
             // console.log("stop interval");
@@ -525,7 +525,7 @@ function animateGradientRDM() {
             if (maxSize < limitMaxSize)
                 maxSize += 0.5;
         }
-        gradient = "radial-gradient(circle at 50% 60%, rgba(60, 35, 137, 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
+        gradient = "radial-gradient(circle at 50% 60%, rgba(" + purpleRGBNum + ", 0.4) 4%, rgba(" + purpleRGB + ", " + initVagueOpacity + ") " + initVaguePosition + "%,"
         for (let j = vagues.length - 1; j > 0; j--) {
             if (vagues[j] < limitMaxSize + vagueSize / 2) {
                 if (vagues[j - 1] <= initVaguePosition + vagueSize) {
