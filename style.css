@@ -82,12 +82,12 @@ input {
 #random:focus {
     width: 33.4vh;
     height: 33.4vh;
-    bottom: 22.8vh;
+    top: 43.8vh;
     left: calc(50% - 16.8vh);
     /*background-image: radial-gradient(ellipse at center, rgba(59, 59, 59, 0.1) 55%,rgba(0,0,0,0.3) 100%);*/
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.13), -2px -2px 2px rgba(179, 175, 255, 0.1),
         3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
-    transition: bottom 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out,
+    transition: top 0.3s ease-in-out, left 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out,
         background-image 0.3s ease-in-out, box-shadow 0.3s ease-in-out, font-size 0.3s ease-in-out, text-shadow 0.9s 0.7s ease-in-out, color 0.8s 0.3s ease-in-out;
 }
 
@@ -106,7 +106,7 @@ button:active {
 
 #random {
     position: absolute;
-    bottom: 22.5vh;
+    top: 43.5vh;
     z-index: 2;
     left: calc(50% - 17vh);
     width: 34vh;
@@ -115,7 +115,7 @@ button:active {
     background: rgba(55, 0, 255, 0.043);
     box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 0.219), -4px -4px 5px 2px rgba(179, 175, 255, 0.1),
         3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
-    transition: bottom 0.3s 1.5s ease-in-out, left 0.3s 1.5s ease-in-out, width 0.3s 1.5s ease-in-out, height 0.3s 1.5s ease-in-out,
+    transition: top 0.3s 1.5s ease-in-out, left 0.3s 1.5s ease-in-out, width 0.3s 1.5s ease-in-out, height 0.3s 1.5s ease-in-out,
         box-shadow 0.3s 1.5s ease-in-out, font-size 0.3s 1.5s ease-in-out, text-shadow 0.5s ease-in-out, color 0.5s 0.3s ease-in-out;
 }
 
