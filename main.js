@@ -888,6 +888,6 @@ function deleteEventListeners() {
     })
 }
 
-changePageSetup()
+changePageMain()
 createEventListeners();
 eventRDMClick()
