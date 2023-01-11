@@ -15,7 +15,7 @@
 
 // une div de setup d'etape contient :
 // si le type de l'etape est un nombre un input number pour choisir le nombre minimum et un input number pour choisir le nombre maximum (le nombre aléatoire sera compris entre le nombre minimum et le nombre maximum) par defaut le nombre minimum est 1 et le nombre maximum est 10
-// si le type de l'etape est un caractère un input text pour choisir la liste des caractères possibles (les caractères seront choisis aléatoirement dans cette liste), par defaut la liste est "abcdefghijklmnopqrstuvwxyz"
+// si le type de l'etape est un caractère un input text pour choisir la liste des caractères possibles (les caractères seront choisis aléatoirement dans cette liste), par defaut la liste est "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 // le boutton save permet de sauvegarder les étapes et leurs range dans le localStorage
 // le boutton back permet de revenir sur la page principale
@@ -26,14 +26,14 @@
 //     type : "number" ou "char",
 //     min : 0 si type = "number",
 //     max : 9 si type = "number",
-//     chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//     chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //     subStep : [ // un sous Step pour chaque caractere de chars si type = "char" ou pour chaque nombre entre min et max si type = "number"
 //          {
 //              it:min-max ou a-z,
 //              type : "number" ou "char",
 //              min : 0 si type = "number",
 //              max : 9 si type = "number",
-//              chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//              chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //              subStep : [  ...  ]
 //         },
 //         {
@@ -41,7 +41,7 @@
 //              type : "number" ou "char",
 //              min : 0 si type = "number",
 //              max : 9 si type = "number",
-//              chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//              chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //              subStep : [  ...  ]
 //         },
 //         ...
@@ -294,7 +294,7 @@ function numStep(it, min = 1, max = 10, subStep = []) {
 }
 
 // fonction qui renvoie un char step
-function charStep(it, chars = "abcdefghijklmnopqrstuvwxyz", subStep = []) {
+function charStep(it, chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", subStep = []) {
     return {
         type: "char",
         chars: chars,
@@ -603,14 +603,14 @@ function reloadStepsSetup(steps) {
 //     type : "number" ou "char",
 //     min : 0 si type = "number",
 //     max : 9 si type = "number",
-//     chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//     chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //     subStep : [ // un sous Step pour chaque caractere de chars si type = "char" ou pour chaque nombre entre min et max si type = "number"
 //          {
 //              it:min-max ou a-z,
 //              type : "number" ou "char",
 //              min : 0 si type = "number",
 //              max : 9 si type = "number",
-//              chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//              chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //              subStep : [  ...  ]
 //         },
 //         {
@@ -618,7 +618,7 @@ function reloadStepsSetup(steps) {
 //              type : "number" ou "char",
 //              min : 0 si type = "number",
 //              max : 9 si type = "number",
-//              chars : "abcdefghijklmnopqrstuvwxyz" si type = "char",
+//              chars : "ABCDEFGHIJKLMNOPQRSTUVWXYZ" si type = "char",
 //              subStep : [  ...  ]
 //         },
 //         ...
@@ -653,18 +653,37 @@ function changeTypeStep(steps, index, type) {
 }
 
 // event listener qui gere le boutton qui lance le random
-document.querySelector("#random").addEventListener("click", function () {
-    animateGradientRDM();
-    console.log("random");
-    steps = getSteps();
-    let selection = getRandom(steps);
-    console.log("selection : ", selection);
-    createItemsStep(selection, 0, steps);
-    runAnimation(selection).then(done => {
-        console.log("animation " + done);
+function eventRDMClickNone() {
+    document.querySelector("#random").addEventListener("click", function () {
         document.querySelector("#random").blur();
     });
-});
+}
+
+function eventRDMClick() {
+    document.querySelector("#random").addEventListener("click", function () {
+        console.log("test")
+        // clear event listener on rdm button
+        const new_element = document.querySelector("#random").cloneNode(true)
+        document.querySelector("#random").parentNode.replaceChild(new_element, document.querySelector("#random"))
+        document.querySelector("#random").focus();
+        animateGradientRDM();
+        console.log("random");
+        steps = getSteps();
+        let selection = getRandom(steps);
+        console.log("selection : ", selection);
+        createItemsStep(selection, 0, steps);
+        runAnimation(selection).then(done => {
+            console.log("animation " + done);
+            document.querySelector("#random").blur();
+            eventRDMClickNone();
+            setTimeout(function () {
+                const new_element = document.querySelector("#random").cloneNode(true)
+                document.querySelector("#random").parentNode.replaceChild(new_element, document.querySelector("#random"))
+                eventRDMClick();
+            }, 1500);
+        });
+    });
+}
 
 function animationdefilement(step) {
     let i = 0;
@@ -869,5 +888,6 @@ function deleteEventListeners() {
     })
 }
 
-changePageMain()
+changePageSetup()
 createEventListeners();
+eventRDMClick()

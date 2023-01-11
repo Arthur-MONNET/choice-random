@@ -79,7 +79,7 @@ input {
 .textGlow:focus {
     font-size: 72px;
     color: rgba(0, 255, 170, 0.473);
-    text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.2),-3px -3px 4px rgba(255, 255, 255, 0.1), 0 0 0px rgba(190, 251, 231, 0.2), 0 0 70px rgb(0, 255, 170,0.7), 0 0 120px rgba(0, 255, 170, 0.5), 0 0 1000px rgba(0, 255, 170, 0.502);
+    text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.05),-3px -3px 4px rgba(255, 255, 255, 0.1), 0 0 0px rgba(190, 251, 231, 0.2), 0 0 70px rgb(0, 255, 170,0.7), 0 0 120px rgba(0, 255, 170, 0.5), 0 0 1000px rgba(0, 255, 170, 0.502);
 }
 
 #random:focus {
@@ -118,8 +118,8 @@ button:active {
     background: rgba(55, 0, 255, 0.043);
     box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 0.219), -4px -4px 5px 2px rgba(179, 175, 255, 0.1),
         3px 3px 25px 2px rgba(0, 0, 0, 0.3) inset, -2px -2px 25px 2px rgba(255, 255, 255, 0.05) inset;
-    transition: top 0.3s 1.5s ease-in-out, left 0.3s 1.5s ease-in-out, width 0.3s 1.5s ease-in-out, height 0.3s 1.5s ease-in-out,
-        box-shadow 0.3s 1.5s ease-in-out, font-size 0.3s 1.5s ease-in-out, text-shadow 0.5s ease-in-out, color 0.5s 0.3s ease-in-out;
+    transition: top 0.3s 1.2s ease-in-out, left 0.3s 1.2s ease-in-out, width 0.3s 1.2s ease-in-out, height 0.3s 1.2s ease-in-out,
+        box-shadow 0.3s 1.2s ease-in-out, font-size 0.3s 1.2s ease-in-out, text-shadow 0.5s ease-in-out, color 0.5s 0.3s ease-in-out;
 }
 
 #list-steps {
@@ -147,4 +147,93 @@ button:active {
     height: 100%;
     background: rgba(41, 1, 187, 0.043);
     box-shadow: inset 20px 20px 40px rgba(0, 0, 0, 0.3), inset -20px -20px 40px rgba(255, 255, 255, 0.05);
+}
+
+
+
+/***************************************/
+
+#type-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 40px;
+    max-width: 100%;
+    overflow: scroll;
+}
+
+#type-list > div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#list-type-steps{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.step-select {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#delete-steps {
+    margin-left: 20px;
+}
+
+/***************************************/
+
+#setup-range-step {
+    height: 80%;
+    max-height: 70vh;
+    overflow: scroll;
+    width: 100%;
+}
+
+#setup-range-step > .setter {
+    padding: 0 20px;
+}
+
+.setter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100%;
+    gap:20px;
+}
+
+.setter > input {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: rgba(168, 158, 207, 0.3);
+    box-shadow: inset 20px 20px 40px rgba(0, 0, 0, 0.3), inset -20px -20px 40px rgba(255, 255, 255, 0.05);
+    padding: 5px 10px;
+}
+
+.sub-steps {
+    border-left: solid 5px rgba(168, 158, 207, 0.3);
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.sub-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.sub-step>div:first-child {
+    padding: 2px 7px 2px 10px;
+    width: 35px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    text-align: end;
+    border: solid 3px rgba(168, 158, 207, 0.3);
+    border-left : none;
 }
