@@ -443,7 +443,7 @@ function createStepChar(step) {
         content += '<div class="sub-steps">';
         for (let i = 0; i < step.chars.length; i++) {
             content += "<div class='sub-step' data-it='" + step.chars[i] + "'><div class='char-sub-step'>" + step.chars[i] + "</div>";
-            if (step.subStep.type === "char") {
+            if (step.subStep[i].type === "char") {
                 content += createStepChar(step.subStep[i]);
             } else {
                 content += createStepNumber(step.subStep[i]);
@@ -685,8 +685,11 @@ function eventRDMClick() {
     });
 }
 
-function animationdefilement(step) {
+function animationdefilement(stepWrapper) {
     let i = 0;
+    const step = stepWrapper.querySelector(".stepContent");
+    stepWrapper.querySelector(".doorLeft").classList.add("open");
+    stepWrapper.querySelector(".doorRight").classList.add("open");
     let interval = setInterval(function () {
         if (i < 20) {
             let items = step.querySelectorAll("span");
@@ -709,6 +712,9 @@ async function runAnimation(selection) {
     console.log("runAnimation : ", selection);
     let i = 1;
     console.log("selection.length : ", selection.length);
+    document.querySelectorAll(".doorLeft, .doorRight").forEach(door => {
+        door.classList.remove("open");
+    });
     animationdefilement(document.querySelector("#step0"));
     return await new Promise(resolve => {
         const stepInterval = setInterval(() => {
@@ -726,7 +732,7 @@ async function runAnimation(selection) {
 // function createItemsStep qui crée les items de chaque Step et qui les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
 function createItemsStep(selection, index, steps) {
     console.log("createItemsStep : ", selection, index, steps);
-    let step = document.querySelector("#step" + index);
+    let step = document.querySelector("#step" + index + ">.stepContent");
     step.innerHTML = "";
     for (let item of getListItem(steps)) {
         step.innerHTML += '<span item="' + item + '">' + item.toString().toUpperCase() + '</span>';
@@ -742,9 +748,9 @@ function createItemsStep(selection, index, steps) {
 // fontion qui crée les text de chaque Step et les ajoute dans la page main, le premier step est initialisé a min si type = "number" ou au premier caractere de chars si type = "char"
 function createTextStep(steps) {
     console.log("createTextStep : ", steps);
-    let text = '<span id="step0">' + (steps.type === "number" ? steps.min : steps.chars[0].toUpperCase()) + '</span>';
-    for (let i = 1; i < getNbStep(steps); i++) {
-        text += '<span id="step' + i + '"></span>'
+    let text = '';
+    for (let i = 0; i < getNbStep(steps); i++) {
+        text += '<div class="stepWrapper"><div id="step' + i + '"><div class="doorLeft"></div><div class="stepContent"></div><div class="doorRight"></div></div></div>'
     }
     document.querySelector("#list-steps").innerHTML = text;
 }

@@ -128,7 +128,9 @@ button:active {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 0, 10vw;
+    overflow: auto;
+    max-width: 100%;
+    padding: 0 10vw;
     margin-top: 15vh;
     height: 15vh;
     display: flex;
@@ -138,19 +140,62 @@ button:active {
     z-index: 1;
 }
 
-#list-steps > span {
+#list-steps > div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 15vh;
+    min-width: 15vh;
+    height: 100%;
+}
+
+#list-steps > div > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    overflow: hidden;
     border-radius: 39px;
     width: 15vh;
     height: 100%;
-    background: rgba(41, 1, 187, 0.043);
-    box-shadow: inset 20px 20px 40px rgba(0, 0, 0, 0.3), inset -20px -20px 40px rgba(255, 255, 255, 0.05);
+    background: rgb(66, 75, 111);
 }
 
+.doorLeft, .doorRight {
+    width: 50%;
+    position: absolute;
+    height: 100%;
+    background: rgb(66, 75, 111);
+    transition: width 0.3s ease-in-out;
+}
 
+.doorLeft {
+    left: 0;
+    border-radius: 39px 0 0 39px;
+    box-shadow: inset 5px 5px 10px rgb(0 0 0 / 30%), inset -10px -10px 40px rgb(255 255 255 / 2%);
+}
+
+.doorLeft.open, .doorRight.open {
+    width:30px;
+    transition: width 0.8s 0.5 ease-in-out;
+}
+
+.doorRight {
+    right: 0;
+    border-radius: 0 39px 39px 0;
+    box-shadow: inset 0px 15px 10px -10px rgb(0 0 0 / 30%), inset -10px -10px 40px rgb(255 255 255 / 2%);
+}
+
+.stepContent{
+    height: 100%;
+    width: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: inset 10px 15px 25px rgb(0 0 0 / 30%), inset -10px -10px 40px rgb(255 255 255 / 2%);
+}
 
 /***************************************/
 
