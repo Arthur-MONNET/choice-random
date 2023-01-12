@@ -130,11 +130,11 @@ button:active {
     width: 100%;
     overflow: auto;
     max-width: 100%;
-    padding: 0 10vw;
+    padding: 3vh 10vw;
     margin-top: 15vh;
-    height: 15vh;
+    height: 21vh;
     display: flex;
-    justify-content: center;
+    justify-content: stretch;
     align-items: center;
     gap: 10vw;
     z-index: 1;
@@ -152,7 +152,7 @@ button:active {
 #list-steps > div > div {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    justify-content: center;
     align-items: center;
     position: absolute;
     overflow: hidden;
