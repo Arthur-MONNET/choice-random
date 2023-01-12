@@ -152,7 +152,7 @@ button:active {
 #list-steps > div > div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: stretch;
     align-items: center;
     position: absolute;
     overflow: hidden;
