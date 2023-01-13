@@ -144,7 +144,8 @@ button:active {
     position: relative;
     display: flex;
     align-items: center;
-    width: 15vh;
+    justify-content: center;
+    width: 100%;
     min-width: 15vh;
     height: 100%;
 }
